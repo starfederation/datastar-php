@@ -5,7 +5,6 @@
 
 namespace starfederation\datastar\events;
 
-use putyourlightson\datastar\events\EventInterface;
 use starfederation\datastar\enums\EventType;
 
 class Delete implements EventInterface

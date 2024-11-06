@@ -5,7 +5,7 @@
 
 namespace starfederation\datastar;
 
-use putyourlightson\datastar\events\EventInterface;
+use starfederation\datastar\events\EventInterface;
 use starfederation\datastar\enums\ConsoleMode;
 use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;

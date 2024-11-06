@@ -3,7 +3,7 @@
  * @copyright Copyright (c) PutYourLightsOn
  */
 
-namespace putyourlightson\datastar\events;
+namespace starfederation\datastar\events;
 
 use starfederation\datastar\enums\EventType;
 
