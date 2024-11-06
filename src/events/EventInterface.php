@@ -7,9 +7,6 @@ namespace putyourlightson\datastar\events;
 
 use starfederation\datastar\enums\EventType;
 
-/**
- * A Datastar event interface.
- */
 interface EventInterface
 {
     /**
