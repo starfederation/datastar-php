@@ -31,10 +31,10 @@ class ServerSentEventGenerator
      *
      * @param EventType $eventType
      * @param string[] $dataLines
-     * @param array $options {
-     *     @type string|null $id
-     *     @type int|null $retry
-     * }
+     * @param array{
+     *     id: string|null,
+     *     retry: int|null,
+     * } $options
      */
     public function send(EventType $eventType, array $dataLines, array $options = []): void
     {

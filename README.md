@@ -7,7 +7,14 @@ use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;
 use starfederation\datastar\ServerSentEventGenerator;
 
+// Creates a new `ServerSentEventGenerator` instance.
 $sseGenerator = new ServerSentEventGenerator();
+
+// Sends an SSE event of the given type.
+$sseGenerator->send(EventType::EventTypeFragment, ['<div></div>'], [
+    'id' => '123',
+    'retry' => 500,
+]);
 
 // Inserts a fragment into the DOM.
 $sseGenerator->renderFragment('<div></div>', [
