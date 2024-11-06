@@ -7,7 +7,7 @@ namespace starfederation\datastar\events;
 
 use starfederation\datastar\enums\EventType;
 
-class Delete implements EventInterface
+class Remove implements EventInterface
 {
     public string $selector;
 
@@ -21,7 +21,7 @@ class Delete implements EventInterface
      */
     public function getEventType(): EventType
     {
-        return EventType::EventTypeDelete;
+        return EventType::EventTypeRemove;
     }
 
     /**

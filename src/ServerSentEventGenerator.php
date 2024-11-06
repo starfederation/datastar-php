@@ -10,7 +10,7 @@ use starfederation\datastar\enums\ConsoleMode;
 use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;
 use starfederation\datastar\events\Console;
-use starfederation\datastar\events\Delete;
+use starfederation\datastar\events\Remove;
 use starfederation\datastar\events\Fragment;
 use starfederation\datastar\events\Redirect;
 use starfederation\datastar\events\Signal;
@@ -90,11 +90,11 @@ class ServerSentEventGenerator
     }
 
     /**
-     * Deletes a fragment from the DOM.
+     * Removes one or more fragments from the DOM.
      */
-    public function deleteFragments(string $selector): void
+    public function removeFragments(string $selector): void
     {
-        $this->sendEvent(new Delete($selector));
+        $this->sendEvent(new Remove($selector));
     }
 
     /**
@@ -106,9 +106,9 @@ class ServerSentEventGenerator
     }
 
     /**
-     * Deletes from the store.
+     * Removes one or more paths from the store.
      */
-    public function deleteFromStore(string $data, array $options = []): void
+    public function removeFromStore(string $data, array $options = []): void
     {
         // TODO: Implement
     }

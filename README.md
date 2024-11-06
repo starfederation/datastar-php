@@ -16,7 +16,7 @@ $sseGenerator->renderFragment('<div></div>', [
     'useViewTransition' => true,
 ]);
 
-$sseGenerator->deleteFragments('#my-div');
+$sseGenerator->removeFragments('#my-div');
 ```
 
 ```php
