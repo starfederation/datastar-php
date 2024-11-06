@@ -5,15 +5,14 @@
 
 namespace starfederation\datastar\events;
 
-use starfederation\datastar\enums\ConsoleMode;
 use starfederation\datastar\enums\EventType;
 
 class Console implements EventInterface
 {
-    public ConsoleMode $mode;
+    public string $mode;
     public string $message;
 
-    public function __construct(ConsoleMode $mode, string $message)
+    public function __construct(string $mode, string $message)
     {
         $this->mode = $mode;
         $this->message = $message;
@@ -22,9 +21,9 @@ class Console implements EventInterface
     /**
      * @inerhitdoc
      */
-    public function getEventType(): EventType
+    public function getEventType(): string
     {
-        return EventType::EventTypeConsole;
+        return EventType::CONSOLE;
     }
 
     /**
@@ -32,6 +31,6 @@ class Console implements EventInterface
      */
     public function getDataLines(): array
     {
-        return ['data: ' . $this->mode->value . ' ' . $this->message];
+        return ['data: ' . $this->mode . ' ' . $this->message];
     }
 }

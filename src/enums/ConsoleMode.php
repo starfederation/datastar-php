@@ -5,25 +5,25 @@
 
 namespace starfederation\datastar\enums;
 
-enum ConsoleMode: string
+class ConsoleMode
 {
-    case ConsoleModeAssert = 'assert';
-    case ConsoleModeClear = 'clear';
-    case ConsoleModeCount = 'count';
-    case ConsoleModeCountReset = 'countReset';
-    case ConsoleModeDebug = 'debug';
-    case ConsoleModeDir = 'dir';
-    case ConsoleModeDirxml = 'dirxml';
-    case ConsoleModeError = 'error';
-    case ConsoleModeGroup = 'group';
-    case ConsoleModeGroupCollapsed = 'groupCollapsed';
-    case ConsoleModeGroupEnd = 'groupEnd';
-    case ConsoleModeInfo = 'info';
-    case ConsoleModeLog = 'log';
-    case ConsoleModeTable = 'table';
-    case ConsoleModeTime = 'time';
-    case ConsoleModeTimeEnd = 'timeEnd';
-    case ConsoleModeTimeLog = 'timeLog';
-    case ConsoleModeTrace = 'trace';
-    case ConsoleModeWarn = 'warn';
+    public const ASSERT = 'assert';
+    public const CLEAR = 'clear';
+    public const COUNT = 'count';
+    public const COUNT_RESET = 'countReset';
+    public const DEBUG = 'debug';
+    public const DIR = 'dir';
+    public const DIRXML = 'dirxml';
+    public const ERROR = 'error';
+    public const GROUP = 'group';
+    public const GROUP_COLLAPSED = 'groupCollapsed';
+    public const GROUP_END = 'groupEnd';
+    public const INFO = 'info';
+    public const LOG = 'log';
+    public const TABLE = 'table';
+    public const TIME = 'time';
+    public const TIME_END = 'timeEnd';
+    public const TIME_LOG = 'timeLog';
+    public const TRACE = 'trace';
+    public const WARN = 'warn';
 }

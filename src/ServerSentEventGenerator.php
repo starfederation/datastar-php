@@ -6,8 +6,6 @@
 namespace starfederation\datastar;
 
 use starfederation\datastar\events\EventInterface;
-use starfederation\datastar\enums\ConsoleMode;
-use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;
 use starfederation\datastar\events\Console;
 use starfederation\datastar\events\Remove;
@@ -29,14 +27,14 @@ class ServerSentEventGenerator
     /**
      * Sends a Datastar event.
      *
-     * @param EventType $eventType
+     * @param string $eventType
      * @param string[] $dataLines
      * @param array{
      *     id: string|null,
      *     retry: int|null,
      * } $options
      */
-    public function send(EventType $eventType, array $dataLines, array $options = []): void
+    public function send(string $eventType, array $dataLines, array $options = []): void
     {
         $eventData = new ServerSentEventData(
             eventType: $eventType,
@@ -55,7 +53,7 @@ class ServerSentEventGenerator
         }
 
         $output = [
-            'event: ' . $eventData->eventType->value,
+            'event: ' . $eventData->eventType,
             'id: ' . $eventData->id,
             'retry: ' . $eventData->retry,
         ];
@@ -124,7 +122,7 @@ class ServerSentEventGenerator
     /**
      * Sends a message to the browser console.
      */
-    public function console(ConsoleMode $mode, string $message): void
+    public function console(string $mode, string $message): void
     {
         $this->sendEvent(new Console($mode, $message));
     }

@@ -5,14 +5,12 @@
 
 namespace starfederation\datastar\events;
 
-use starfederation\datastar\enums\EventType;
-
 interface EventInterface
 {
     /**
      * Returns the event type for this event.
      */
-    public function getEventType(): EventType;
+    public function getEventType(): string;
 
     /**
      * Returns the data lines for this event.

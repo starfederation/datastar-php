@@ -26,9 +26,9 @@ class Signal implements EventInterface
     /**
      * @inerhitdoc
      */
-    public function getEventType(): EventType
+    public function getEventType(): string
     {
-        return EventType::EventTypeSignal;
+        return EventType::SIGNAL;
     }
 
     /**

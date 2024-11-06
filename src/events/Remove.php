@@ -32,9 +32,9 @@ class Remove implements EventInterface
     /**
      * @inerhitdoc
      */
-    public function getEventType(): EventType
+    public function getEventType(): string
     {
-        return EventType::EventTypeRemove;
+        return EventType::REMOVE;
     }
 
     /**
