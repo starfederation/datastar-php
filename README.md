@@ -28,7 +28,7 @@ $sseGenerator->renderFragment('<div></div>', [
 $sseGenerator->removeFragments('#my-div');
 
 // Updates values in the store.
-$sseGenerator->patchStore(['foo' => 123], ['$onlyIfMissing' => true]);
+$sseGenerator->patchStore(['foo' => 123], ['onlyIfMissing' => true]);
 
 // Removes one or more paths from the store.
 $sseGenerator->removeFromStore(['foo', 'bar']);
