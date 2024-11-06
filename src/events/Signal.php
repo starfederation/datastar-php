@@ -12,10 +12,15 @@ class Signal implements EventInterface
     public string $data;
     public ?bool $onlyIfMissing = null;
 
-    public function __construct(string $data, ?bool $onlyIfMissing = null)
+    public function __construct(string $data, array $options = [])
     {
         $this->data = $data;
-        $this->onlyIfMissing = $onlyIfMissing;
+
+        foreach ($options as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
+        }
     }
 
     /**

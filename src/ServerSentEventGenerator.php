@@ -92,13 +92,13 @@ class ServerSentEventGenerator
     /**
      * Removes one or more fragments from the DOM.
      */
-    public function removeFragments(string $selector): void
+    public function removeFragments(string $selector, array $options = []): void
     {
-        $this->sendEvent(new Remove($selector));
+        $this->sendEvent(new Remove($selector, $options));
     }
 
     /**
-     * Updates the store.
+     * Updates values in the store.
      */
     public function patchStore(string $data, array $options = []): void
     {
@@ -108,9 +108,9 @@ class ServerSentEventGenerator
     /**
      * Removes one or more paths from the store.
      */
-    public function removeFromStore(string $data, array $options = []): void
+    public function removeFromStore(array $paths): void
     {
-        // TODO: Implement
+        $this->sendEvent(new Remove(paths: $paths));
     }
 
     /**

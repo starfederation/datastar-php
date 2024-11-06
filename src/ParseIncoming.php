@@ -7,7 +7,10 @@ namespace starfederation\datastar;
 
 class ParseIncoming
 {
-    public static function store(): array
+    /**
+     * Returns the store from the incoming request.
+     */
+    public static function getStore(): array
     {
         $store = [];
 
