@@ -26,5 +26,4 @@ enum ConsoleMode: string
     case ConsoleModeTimeLog = 'timeLog';
     case ConsoleModeTrace = 'trace';
     case ConsoleModeWarn = 'warn';
-
 }
