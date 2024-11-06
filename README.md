@@ -3,6 +3,7 @@
 ## Usage
 
 ```php
+use starfederation\datastar\enums\ConsoleMode;
 use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;
 use starfederation\datastar\ServerSentEventGenerator;
@@ -37,7 +38,7 @@ $sseGenerator->removeFromStore(['foo', 'bar']);
 $sseGenerator->redirect('/success');
 
 // Sends a message to the browser console.
-$sseGenerator->console('log', 'Hello, world!');
+$sseGenerator->console(ConsoleMode::ConsoleModeLog, 'Hello, world!');
 ```
 
 ```php
