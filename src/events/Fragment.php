@@ -5,13 +5,12 @@
 
 namespace starfederation\datastar\events;
 
+use starfederation\datastar\Defaults;
 use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;
 
 class Fragment implements EventInterface
 {
-    protected const DEFAULT_SETTLE_DURATION = 300;
-
     public string $data;
     public ?string $selector = null;
     public ?FragmentMergeMode $merge = null;
@@ -49,9 +48,9 @@ class Fragment implements EventInterface
             $dataLines[] = 'data: selector ' . $this->selector;
         }
 
-        $dataLines[] = 'data: merge ' . ($this->merge ?? FragmentMergeMode::Morph->value);
+        $dataLines[] = 'data: merge ' . ($this->merge ?? Defaults::DEFAULT_FRAGMENT_MERGE_MODE->value);
 
-        if ($this->settleDuration !== null && $this->settleDuration !== static::DEFAULT_SETTLE_DURATION) {
+        if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_TIME) {
             $dataLines[] = 'data: settle ' . $this->settleDuration;
         }
 

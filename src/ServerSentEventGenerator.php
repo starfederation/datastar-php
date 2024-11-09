@@ -17,8 +17,6 @@ use starfederation\datastar\events\Signal;
 
 class ServerSentEventGenerator
 {
-    protected const DEFAULT_SSE_SEND_RETRY = 1;
-
     protected int $id = 0;
 
     public function __construct()
@@ -41,7 +39,7 @@ class ServerSentEventGenerator
         $eventData = new ServerSentEventData(
             eventType: $eventType,
             data: $dataLines,
-            retry: static::DEFAULT_SSE_SEND_RETRY,
+            retry: Defaults::DEFAULT_SSE_SEND_RETRY,
         );
 
         foreach ($options as $key => $value) {
