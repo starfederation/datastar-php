@@ -1,5 +1,23 @@
 # Datastar PHP SDK
 
+This package provides a PHP SDK for working with [Datastar](https://data-star.dev/).
+
+## License
+
+This package is licensed for free under the MIT License.
+
+## Requirements
+
+This package requires PHP 8.1 or later.
+
+## Installation
+
+Install using composer.
+
+```shell
+composer require starfederation/datastar-php
+```
+
 ## Usage
 
 ```php
@@ -46,3 +64,7 @@ use starfederation\datastar\ParseIncoming;
 
 $store = ParseIncoming::getStore();
 ```
+
+---
+
+Created by [PutYourLightsOn](https://putyourlightson.com/).
