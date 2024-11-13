@@ -50,7 +50,7 @@ class Fragment implements EventInterface
 
         $dataLines[] = 'data: merge ' . ($this->merge ?? Defaults::DEFAULT_FRAGMENT_MERGE_MODE->value);
 
-        if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_TIME) {
+        if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_DURATION) {
             $dataLines[] = 'data: settle ' . $this->settleDuration;
         }
 
