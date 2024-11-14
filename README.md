@@ -29,16 +29,10 @@ use starfederation\datastar\ServerSentEventGenerator;
 // Creates a new `ServerSentEventGenerator` instance.
 $sseGenerator = new ServerSentEventGenerator();
 
-// Sends an SSE event of the given type.
-$sseGenerator->send(EventType::Fragment, ['<div></div>'], [
-    'id' => '123',
-    'retry' => 500,
-]);
-
-// Inserts a fragment into the DOM.
+// Renders a fragment in the DOM.
 $sseGenerator->renderFragment('<div></div>', [
     'selector' => '#my-div',
-    'merge' => FragmentMergeMode::Append,
+    'mergeMode' => FragmentMergeMode::Append,
     'settleDuration' => 1000,
     'useViewTransition' => true,
 ]);

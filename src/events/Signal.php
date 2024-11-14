@@ -9,6 +9,8 @@ use starfederation\datastar\enums\EventType;
 
 class Signal implements EventInterface
 {
+    use EventTrait;
+
     public string $data;
     public ?bool $onlyIfMissing = null;
 

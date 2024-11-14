@@ -11,9 +11,11 @@ use starfederation\datastar\enums\FragmentMergeMode;
 
 class Fragment implements EventInterface
 {
+    use EventTrait;
+
     public string $data;
     public ?string $selector = null;
-    public ?FragmentMergeMode $merge = null;
+    public ?FragmentMergeMode $mergeMode = null;
     public ?string $settleDuration = null;
     public ?bool $useViewTransition = null;
 
@@ -48,7 +50,7 @@ class Fragment implements EventInterface
             $dataLines[] = 'data: selector ' . $this->selector;
         }
 
-        $dataLines[] = 'data: merge ' . ($this->merge ?? Defaults::DEFAULT_FRAGMENT_MERGE_MODE->value);
+        $dataLines[] = 'data: merge ' . ($this->mergeMode ?? Defaults::DEFAULT_FRAGMENT_MERGE_MODE->value);
 
         if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_DURATION) {
             $dataLines[] = 'data: settle ' . $this->settleDuration;

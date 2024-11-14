@@ -5,11 +5,12 @@
 
 namespace starfederation\datastar\events;
 
+use starfederation\datastar\Defaults;
 use starfederation\datastar\enums\EventType;
 
 class Remove implements EventInterface
 {
-    protected const DEFAULT_SETTLE_DURATION = 300;
+    use EventTrait;
 
     public ?string $selector;
     public ?string $settleDuration = null;
@@ -45,7 +46,7 @@ class Remove implements EventInterface
         if ($this->selector !== null) {
             $dataLines = ['data: selector ' . $this->selector];
 
-            if ($this->settleDuration !== null && $this->settleDuration !== static::DEFAULT_SETTLE_DURATION) {
+            if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_DURATION) {
                 $dataLines[] = 'data: settle ' . $this->settleDuration;
             }
 

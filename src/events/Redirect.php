@@ -9,6 +9,8 @@ use starfederation\datastar\enums\EventType;
 
 class Redirect implements EventInterface
 {
+    use EventTrait;
+
     public string $url;
 
     public function __construct(string $url)

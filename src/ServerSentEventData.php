@@ -10,19 +10,19 @@ use starfederation\datastar\enums\EventType;
 class ServerSentEventData
 {
     public EventType $eventType;
-    public ?string $id;
     public array $data;
-    public ?int $retry;
+    public ?string $eventId;
+    public ?int $retryDuration;
 
     public function __construct(
         EventType $eventType,
-        ?string $id = null,
         array $data,
-        ?int $retry = null,
+        ?string $eventId = null,
+        ?int $retryDuration = null,
     ) {
         $this->eventType = $eventType;
-        $this->id = $id;
         $this->data = $data;
-        $this->retry = $retry;
+        $this->eventId = $eventId;
+        $this->retryDuration = $retryDuration;
     }
 }

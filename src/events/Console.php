@@ -10,6 +10,8 @@ use starfederation\datastar\enums\EventType;
 
 class Console implements EventInterface
 {
+    use EventTrait;
+
     public ConsoleMode $mode;
     public string $message;
 

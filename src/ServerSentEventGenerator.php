@@ -17,69 +17,21 @@ use starfederation\datastar\events\Signal;
 
 class ServerSentEventGenerator
 {
-    protected int $id = 0;
-
     public function __construct()
     {
         $this->sendHeaders();
     }
 
     /**
-     * Sends a Datastar event.
+     * Renders a fragment in the DOM.
      *
-     * @param EventType $eventType
-     * @param string[] $dataLines
-     * @param array{
-     *     id: string|null,
-     *     retry: int|null,
-     * } $options
-     */
-    public function send(EventType $eventType, array $dataLines, array $options = []): void
-    {
-        $eventData = new ServerSentEventData(
-            eventType: $eventType,
-            data: $dataLines,
-            retry: Defaults::DEFAULT_SSE_SEND_RETRY,
-        );
-
-        foreach ($options as $key => $value) {
-            if (property_exists($eventData, $key)) {
-                $eventData->$key = $value;
-            }
-        }
-
-        if (empty($eventData->id)) {
-            $eventData->id = ++$this->id;
-        }
-
-        $output = [
-            'event: ' . $eventData->eventType->value,
-            'id: ' . $eventData->id,
-            'retry: ' . $eventData->retry,
-        ];
-
-        foreach ($eventData->data as $line) {
-            $output[] = 'data: ' . $line;
-        }
-
-        echo implode("\n", $output) . "\n\n";
-
-        if (ob_get_contents()) {
-          ob_end_flush();
-        }
-        flush();
-    }
-
-    /**
-     * Inserts a fragment into the DOM.
-     *
-     * /**
-     * @param string $data
      * @param array{
      *     selector: string|null,
-     *     merge: FragmentMergeMode|null,
+     *     mergeMode: FragmentMergeMode|null,
      *     settleDuration: int|null,
      *     useViewTransition: bool|null,
+     *     eventId: string|null,
+     *     retryDuration: int|null,
      * } $options
      */
     public function renderFragment(string $data, array $options = []): void
@@ -89,6 +41,11 @@ class ServerSentEventGenerator
 
     /**
      * Removes one or more fragments from the DOM.
+     *
+     * @param array{
+     *      eventId: string|null,
+     *      retryDuration: int|null,
+     *  } $options
      */
     public function removeFragments(string $selector, array $options = []): void
     {
@@ -154,5 +111,48 @@ class ServerSentEventGenerator
             $event->getEventType(),
             $event->getDataLines(),
         );
+    }
+
+    /**
+     * Sends a Datastar event.
+     *
+     * @param EventType $eventType
+     * @param string[] $dataLines
+     * @param array{
+     *     id: string|null,
+     *     retry: int|null,
+     * } $options
+     */
+    protected function send(EventType $eventType, array $dataLines, array $options = []): void
+    {
+        $eventData = new ServerSentEventData(
+            $eventType,
+            $dataLines,
+            null,
+            Defaults::DEFAULT_SSE_SEND_RETRY,
+        );
+
+        foreach ($options as $key => $value) {
+            if (property_exists($eventData, $key)) {
+                $eventData->$key = $value;
+            }
+        }
+
+        $output = [
+            'event: ' . $eventData->eventType->value,
+            'id: ' . $eventData->eventId,
+            'retry: ' . $eventData->retryDuration,
+        ];
+
+        foreach ($eventData->data as $line) {
+            $output[] = 'data: ' . $line;
+        }
+
+        echo implode("\n", $output) . "\n\n";
+
+        if (ob_get_contents()) {
+          ob_end_flush();
+        }
+        flush();
     }
 }
