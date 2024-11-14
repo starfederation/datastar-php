@@ -47,7 +47,7 @@ class Remove implements EventInterface
             $dataLines = ['data: selector ' . $this->selector];
 
             if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_DURATION) {
-                $dataLines[] = 'data: settle ' . $this->settleDuration;
+                $dataLines[] = 'data: settleDuration ' . $this->settleDuration;
             }
 
             if ($this->useViewTransition === true) {
