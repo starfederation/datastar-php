@@ -5,7 +5,7 @@
 
 namespace starfederation\datastar\events;
 
-use starfederation\datastar\Defaults;
+use starfederation\datastar\Constants;
 use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;
 
@@ -14,10 +14,10 @@ class Fragment implements EventInterface
     use EventTrait;
 
     public string $data;
-    public ?string $selector = null;
-    public ?FragmentMergeMode $mergeMode = null;
-    public ?string $settleDuration = null;
-    public ?bool $useViewTransition = null;
+    public string $selector = '';
+    public FragmentMergeMode $mergeMode = Constants::DefaultFragmentMergeMode;
+    public int $settleDuration = Constants::DefaultSettleDuration;
+    public bool $useViewTransition = Constants::DefaultUseViewTransitions;
 
     public function __construct(string $data, array $options = [])
     {
@@ -45,24 +45,24 @@ class Fragment implements EventInterface
         $dataLines = [];
 
         if (!empty($this->selector)) {
-            $dataLines[] = $this->getDataLine('selector', $this->selector);
+            $dataLines[] = $this->getDataLine(Constants::SelectorDatalineLiteral, $this->selector);
         }
 
-        if (!empty($this->mergeMode) && $this->mergeMode !== Defaults::DEFAULT_FRAGMENT_MERGE_MODE) {
-            $dataLines[] = $this->getDataLine('mergeMode', $this->mergeMode->value);
+        if ($this->mergeMode !== Constants::DefaultFragmentMergeMode) {
+            $dataLines[] = $this->getDataLine(Constants::MergeModeDatalineLiteral, $this->mergeMode->value);
         }
 
-        if (!empty($this->settleDuration) && $this->settleDuration != Defaults::DEFAULT_SETTLE_DURATION) {
-            $dataLines[] = $this->getDataLine('settleDuration', $this->settleDuration);
+        if ($this->settleDuration != Constants::DefaultSettleDuration) {
+            $dataLines[] = $this->getDataLine(Constants::SettleDurationDatalineLiteral, $this->settleDuration);
         }
 
-        if ($this->useViewTransition === true) {
-            $dataLines[] = $this->getDataLine('useViewTransition', 'true');
+        if ($this->useViewTransition !== Constants::DefaultUseViewTransitions) {
+            $dataLines[] = $this->getDataLine(Constants::UseViewTransitionDatalineLiteral, 'true');
         }
 
         $lines = explode("\n", $data);
         foreach ($lines as $line) {
-            $dataLines[] = $this->getDataLine('fragment', $line);
+            $dataLines[] = $this->getDataLine(Constants::FragmentDatalineLiteral, $line);
         }
 
         return $dataLines;

@@ -5,6 +5,7 @@
 
 namespace starfederation\datastar\events;
 
+use starfederation\datastar\Constants;
 use starfederation\datastar\enums\EventType;
 
 class Redirect implements EventInterface
@@ -32,7 +33,7 @@ class Redirect implements EventInterface
     public function getDataLines(): array
     {
         return [
-            $this->getDataLine('url', $this->url),
+            $this->getDataLine(Constants::UrlDatalineLiteral, $this->url),
         ];
     }
 }

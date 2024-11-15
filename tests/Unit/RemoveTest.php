@@ -1,6 +1,6 @@
 <?php
 
-use starfederation\datastar\Defaults;
+use starfederation\datastar\Constants;
 use starfederation\datastar\events\Remove;
 
 test('Options are correctly output for `selector`', function() {
@@ -20,7 +20,7 @@ test('Options are correctly output for `selector`', function() {
 test('Default options are not output for `selector`', function() {
     $content = 'body';
     $event = new Remove($content, [
-        'settleDuration' => Defaults::DEFAULT_SETTLE_DURATION,
+        'settleDuration' => Constants::DefaultSettleDuration,
         'useViewTransition' => false,
     ]);
     expect($event->getDataLines())

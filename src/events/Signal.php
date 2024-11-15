@@ -5,6 +5,7 @@
 
 namespace starfederation\datastar\events;
 
+use starfederation\datastar\Constants;
 use starfederation\datastar\enums\EventType;
 
 class Signal implements EventInterface
@@ -12,7 +13,7 @@ class Signal implements EventInterface
     use EventTrait;
 
     public string $data;
-    public ?bool $onlyIfMissing = null;
+    public bool $onlyIfMissing = Constants::DefaultOnlyIfMissing;
 
     public function __construct(string $data, array $options = [])
     {
@@ -39,13 +40,13 @@ class Signal implements EventInterface
         $data = trim($this->data);
         $dataLines = [];
 
-        if ($this->onlyIfMissing === true) {
-            $dataLines[] = $this->getDataLine('onlyIfMissing', 'true');
+        if ($this->onlyIfMissing !== Constants::DefaultOnlyIfMissing) {
+            $dataLines[] = $this->getDataLine(Constants::OnlyIfMissingDatalineLiteral, 'true');
         }
 
         $lines = explode("\n", $data);
         foreach ($lines as $line) {
-            $dataLines[] = $this->getDataLine('store', $line);
+            $dataLines[] = $this->getDataLine(Constants::StoreDatalineLiteral, $line);
         }
 
         return $dataLines;

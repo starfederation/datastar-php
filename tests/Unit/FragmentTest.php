@@ -1,6 +1,6 @@
 <?php
 
-use starfederation\datastar\Defaults;
+use starfederation\datastar\Constants;
 use starfederation\datastar\enums\FragmentMergeMode;
 use starfederation\datastar\events\Fragment;
 
@@ -27,7 +27,7 @@ test('Default options are not output', function() {
     $event = new Fragment($content, [
         'selector' => '',
         'mergeMode' => FragmentMergeMode::Morph,
-        'settleDuration' => Defaults::DEFAULT_SETTLE_DURATION,
+        'settleDuration' => Constants::DefaultSettleDuration,
         'useViewTransition' => false,
     ]);
     expect($event->getDataLines())

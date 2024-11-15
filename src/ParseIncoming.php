@@ -12,17 +12,18 @@ class ParseIncoming
      */
     public static function getStore(): array
     {
+        $key = Constants::DatastarKey;
         $store = [];
 
-        if (isset($_GET['datastar'])) {
-            $store = $_GET['datastar'];
-        } elseif (isset($_POST['datastar'])) {
-            $store = $_POST['datastar'];
+        if (isset($_GET[$key])) {
+            $store = $_GET[$key];
+        } elseif (isset($_POST[$key])) {
+            $store = $_POST[$key];
         } else {
             $input = file_get_contents('php://input');
             parse_str($input, $parsedInput);
-            if (isset($parsedInput['datastar'])) {
-                $store = $parsedInput['datastar'];
+            if (isset($parsedInput[$key])) {
+                $store = $parsedInput[$key];
             }
         }
 

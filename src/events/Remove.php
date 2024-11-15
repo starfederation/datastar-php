@@ -5,7 +5,7 @@
 
 namespace starfederation\datastar\events;
 
-use starfederation\datastar\Defaults;
+use starfederation\datastar\Constants;
 use starfederation\datastar\enums\EventType;
 
 class Remove implements EventInterface
@@ -13,8 +13,8 @@ class Remove implements EventInterface
     use EventTrait;
 
     public ?string $selector;
-    public ?string $settleDuration = null;
-    public ?bool $useViewTransition = null;
+    public int $settleDuration = Constants::DefaultSettleDuration;
+    public bool $useViewTransition = Constants::DefaultUseViewTransitions;
     public ?array $paths;
 
     public function __construct(?string $selector = null, array $options = [], array $paths = null)
@@ -43,15 +43,15 @@ class Remove implements EventInterface
     {
         if ($this->selector !== null) {
             $dataLines = [
-                $this->getDataLine('selector', $this->selector),
+                $this->getDataLine(Constants::SelectorDatalineLiteral, $this->selector),
             ];
 
-            if (!empty($this->settleDuration) && $this->settleDuration != Defaults::DEFAULT_SETTLE_DURATION) {
-                $dataLines[] = $this->getDataLine('settleDuration', $this->settleDuration);
+            if ($this->settleDuration !== Constants::DefaultSettleDuration) {
+                $dataLines[] = $this->getDataLine(Constants::SettleDurationDatalineLiteral, $this->settleDuration);
             }
 
-            if ($this->useViewTransition === true) {
-                $dataLines[] = $this->getDataLine('useViewTransition', 'true');
+            if ($this->useViewTransition !== Constants::DefaultUseViewTransitions) {
+                $dataLines[] = $this->getDataLine(Constants::UseViewTransitionDatalineLiteral, 'true');
             }
 
             return $dataLines;
@@ -59,7 +59,7 @@ class Remove implements EventInterface
 
         if ($this->paths !== null) {
             return [
-                $this->getDataLine('paths', ...$this->paths),
+                $this->getDataLine(Constants::PathsDatalineLiteral, ...$this->paths),
             ];
         }
 

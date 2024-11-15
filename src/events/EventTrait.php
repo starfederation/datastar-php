@@ -5,7 +5,7 @@
 
 namespace starfederation\datastar\events;
 
-use starfederation\datastar\Defaults;
+use starfederation\datastar\Constants;
 
 trait EventTrait
 {
@@ -23,7 +23,7 @@ trait EventTrait
             $options['eventId'] = $this->eventId;
         }
 
-        if (!empty($this->retryDuration) && $this->retryDuration != Defaults::DEFAULT_SSE_SEND_RETRY) {
+        if (!empty($this->retryDuration) && $this->retryDuration != Constants::DefaultSSERetryDuration) {
             $options['retryDuration'] = $this->retryDuration;
         }
 
@@ -33,8 +33,12 @@ trait EventTrait
     /**
      * @inerhitdoc
      */
-    public function getDataLine(string ...$parts): string
+    public function getDataLine(string|int ...$parts): string
     {
+        if (!empty($parts[0])) {
+            $parts[0] = trim($parts[0]);
+        }
+
         return 'data: ' . implode(' ', $parts);
     }
 }
