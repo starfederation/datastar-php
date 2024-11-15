@@ -21,4 +21,5 @@ enum EventType: string
 
     // An event dealing with console messages.
     case Console = 'datastar-console';
+
 }

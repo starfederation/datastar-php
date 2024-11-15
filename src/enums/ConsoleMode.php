@@ -63,4 +63,5 @@ enum ConsoleMode: string
 
     // Outputs a warning message to the console at the &#39;warning&#39; log level.
     case Warn = 'warn';
+
 }

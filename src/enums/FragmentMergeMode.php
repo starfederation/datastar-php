@@ -30,4 +30,5 @@ enum FragmentMergeMode: string
 
     // Upserts the attributes of the existing element.
     case UpsertAttributes = 'upsertAttributes';
+
 }
