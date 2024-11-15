@@ -23,7 +23,7 @@ class ServerSentEventGenerator
     }
 
     /**
-     * Renders a fragment in the DOM.
+     * Merges a fragment into the DOM.
      *
      * @param array{
      *     selector?: string|null,
@@ -34,7 +34,7 @@ class ServerSentEventGenerator
      *     retryDuration?: int|null,
      * } $options
      */
-    public function renderFragment(string $data, array $options = []): void
+    public function mergeFragment(string $data, array $options = []): void
     {
         $this->sendEvent(new Fragment($data, $options));
     }
@@ -53,9 +53,9 @@ class ServerSentEventGenerator
     }
 
     /**
-     * Updates values in the store.
+     * Merges values into the store.
      */
-    public function patchStore(string $data, array $options = []): void
+    public function mergeStore(string $data, array $options = []): void
     {
         $this->sendEvent(new Signal($data, $options));
     }

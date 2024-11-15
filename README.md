@@ -29,8 +29,8 @@ use starfederation\datastar\ServerSentEventGenerator;
 // Creates a new `ServerSentEventGenerator` instance.
 $sseGenerator = new ServerSentEventGenerator();
 
-// Renders a fragment in the DOM.
-$sseGenerator->renderFragment('<div></div>', [
+// Merges a fragment into the DOM.
+$sseGenerator->mergeFragment('<div></div>', [
     'selector' => '#my-div',
     'mergeMode' => FragmentMergeMode::Append,
     'settleDuration' => 1000,
@@ -40,8 +40,8 @@ $sseGenerator->renderFragment('<div></div>', [
 // Removes one or more fragments from the DOM.
 $sseGenerator->removeFragments('#my-div');
 
-// Updates values in the store.
-$sseGenerator->patchStore(['foo' => 123], [
+// Merges values into the store.
+$sseGenerator->mergeStore(['foo' => 123], [
     'onlyIfMissing' => true,
 ]);
 
