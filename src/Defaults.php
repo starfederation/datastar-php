@@ -1,4 +1,5 @@
 <?php
+
 namespace starfederation\datastar;
 
 use starfederation\datastar\enums\FragmentMergeMode;

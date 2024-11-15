@@ -15,9 +15,21 @@ interface EventInterface
     public function getEventType(): EventType;
 
     /**
+     * Returns the options for this event.
+     *
+     * @return string[]|int[]
+     */
+    public function getOptions(): array;
+
+    /**
      * Returns the data lines for this event.
      *
      * @return string[]
      */
     public function getDataLines(): array;
+
+    /**
+     * Returns a data line.
+     */
+    public function getDataLine(string $value): string;
 }

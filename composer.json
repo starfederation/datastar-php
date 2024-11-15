@@ -9,7 +9,8 @@
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
-    "craftcms/phpstan": "dev-main"
+    "craftcms/phpstan": "dev-main",
+    "pestphp/pest": "^3.5"
   },
   "autoload": {
     "psr-4": {
@@ -17,13 +18,16 @@
     }
   },
   "scripts": {
-    "phpstan": "phpstan --ansi --memory-limit=1G",
-    "check-cs": "ecs check --ansi",
-    "fix-cs": "ecs check --fix --ansi"
+    "ecs": "ecs check --ansi --fix",
+    "phpstan": "phpstan --memory-limit=1G",
+    "test": "vendor/bin/pest"
   },
   "config": {
     "optimize-autoloader": true,
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   },
   "support": {
     "docs": "https://github.com/starfederation/datastar-php",

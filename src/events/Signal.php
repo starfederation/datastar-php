@@ -19,9 +19,7 @@ class Signal implements EventInterface
         $this->data = $data;
 
         foreach ($options as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->$key = $value;
-            }
+            $this->$key = $value;
         }
     }
 
@@ -38,13 +36,17 @@ class Signal implements EventInterface
      */
     public function getDataLines(): array
     {
+        $data = trim($this->data);
         $dataLines = [];
 
         if ($this->onlyIfMissing === true) {
-            $dataLines[] = 'data: onlyIfMissing true';
+            $dataLines[] = $this->getDataLine('onlyIfMissing', 'true');
         }
 
-        $dataLines[] = 'data: store ' . $this->data;
+        $lines = explode("\n", $data);
+        foreach ($lines as $line) {
+            $dataLines[] = $this->getDataLine('store', $line);
+        }
 
         return $dataLines;
     }

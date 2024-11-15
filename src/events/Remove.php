@@ -22,9 +22,7 @@ class Remove implements EventInterface
         $this->selector = $selector;
 
         foreach ($options as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->$key = $value;
-            }
+            $this->$key = $value;
         }
 
         $this->paths = $paths;
@@ -44,21 +42,25 @@ class Remove implements EventInterface
     public function getDataLines(): array
     {
         if ($this->selector !== null) {
-            $dataLines = ['data: selector ' . $this->selector];
+            $dataLines = [
+                $this->getDataLine('selector', $this->selector),
+            ];
 
-            if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_DURATION) {
-                $dataLines[] = 'data: settleDuration ' . $this->settleDuration;
+            if (!empty($this->settleDuration) && $this->settleDuration != Defaults::DEFAULT_SETTLE_DURATION) {
+                $dataLines[] = $this->getDataLine('settleDuration', $this->settleDuration);
             }
 
             if ($this->useViewTransition === true) {
-                $dataLines[] = 'data: useViewTransition true';
+                $dataLines[] = $this->getDataLine('useViewTransition', 'true');
             }
 
             return $dataLines;
         }
 
         if ($this->paths !== null) {
-            return ['data: paths ' . implode(' ', $this->paths)];
+            return [
+                $this->getDataLine('paths', ...$this->paths),
+            ];
         }
 
         return [];

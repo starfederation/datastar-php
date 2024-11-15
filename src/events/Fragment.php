@@ -24,9 +24,7 @@ class Fragment implements EventInterface
         $this->data = $data;
 
         foreach ($options as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->$key = $value;
-            }
+            $this->$key = $value;
         }
     }
 
@@ -46,25 +44,25 @@ class Fragment implements EventInterface
         $data = trim($this->data);
         $dataLines = [];
 
-        if ($this->selector !== null) {
-            $dataLines[] = 'data: selector ' . $this->selector;
+        if (!empty($this->selector)) {
+            $dataLines[] = $this->getDataLine('selector', $this->selector);
         }
 
-        $dataLines[] = 'data: merge ' . ($this->mergeMode ?? Defaults::DEFAULT_FRAGMENT_MERGE_MODE->value);
+        if (!empty($this->mergeMode) && $this->mergeMode !== Defaults::DEFAULT_FRAGMENT_MERGE_MODE) {
+            $dataLines[] = $this->getDataLine('mergeMode', $this->mergeMode->value);
+        }
 
-        if ($this->settleDuration !== null && $this->settleDuration !== Defaults::DEFAULT_SETTLE_DURATION) {
-            $dataLines[] = 'data: settleDuration ' . $this->settleDuration;
+        if (!empty($this->settleDuration) && $this->settleDuration != Defaults::DEFAULT_SETTLE_DURATION) {
+            $dataLines[] = $this->getDataLine('settleDuration', $this->settleDuration);
         }
 
         if ($this->useViewTransition === true) {
-            $dataLines[] = 'data: useViewTransition true';
+            $dataLines[] = $this->getDataLine('useViewTransition', 'true');
         }
-
-        $dataLines[] = 'data: fragment';
 
         $lines = explode("\n", $data);
         foreach ($lines as $line) {
-            $dataLines[] = 'data: ' . $line;
+            $dataLines[] = $this->getDataLine('fragment', $line);
         }
 
         return $dataLines;

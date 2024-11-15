@@ -31,6 +31,8 @@ class Redirect implements EventInterface
      */
     public function getDataLines(): array
     {
-        return ['data: url ' . $this->url];
+        return [
+            $this->getDataLine('url', $this->url),
+        ];
     }
 }
