@@ -2,7 +2,7 @@ name: Sync Monorepo
 
 on:
   schedule:
-    - cron: '26 * * * *'
+    - cron: '38 * * * *'
 
 jobs:
   sync:
