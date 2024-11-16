@@ -40,4 +40,4 @@ jobs:
         run: |
           git add .
           git commit -m "Sync monorepo"
-          git push origin main
+          git push https://${{ secrets.PAT_TOKEN }}@github.com/starfederation/datastar-php.git main
