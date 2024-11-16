@@ -8,6 +8,10 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
@@ -31,13 +35,12 @@ jobs:
           cp -rT code/php/sdk ./ || exit 1
           rm -rf code/php/sdk
 
-      - name: Set up Git user
+      - name: Sync monorepo
         run: |
-          git config --global user.email "bencroker@users.noreply.github.com"
-          git config --global user.name "Ben Croker"
-
-      - name: Commit changes
-        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
           git commit -m "Sync monorepo"
-          git push https://${{ secrets.PAT_TOKEN }}@github.com/starfederation/datastar-php.git main
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
