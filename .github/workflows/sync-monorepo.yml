@@ -1,4 +1,4 @@
-name: Sync from Monorepo
+name: Sync Monorepo
 
 on:
   schedule:
