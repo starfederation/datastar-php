@@ -2,7 +2,7 @@ name: Sync Monorepo
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 * * * *' # Every hour
   workflow_dispatch: {}
 
 jobs:
@@ -18,11 +18,17 @@ jobs:
       - name: Fetch monorepo
         run: git fetch monorepo
 
-      - name: Sync monorepo
+      - name: Checkout `code/php/sdk` from `monorepo/main`
+        run: git checkout monorepo/main -- code/php/sdk
+
+      - name: Move `code/php/sdk` contents to root
         run: |
-          git checkout monorepo/main code/php/sdk -- .
+          mv code/php/sdk/* ./
+          mv code/php/sdk/.* ./
+          rmdir code/php/sdk
+
+      - name: Commit changes
+        run: |
           git add .
           git commit -m "Sync monorepo"
-
-      - name: Push changes
-        run: git push origin main
+          git push origin main
