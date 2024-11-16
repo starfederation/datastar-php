@@ -21,9 +21,15 @@ jobs:
       - name: Checkout `code/php/sdk` from `monorepo/main`
         run: git checkout monorepo/main -- code/php/sdk
 
-      - name: Sync and remove `code/php/sdk` files
+      - name: Remove directories
         run: |
-          rsync -av --delete code/php/sdk/ ./
+          rm -rf ./src
+          rm -rf ./tests
+
+      - name: Move files
+        run: |
+          mv code/php/sdk/* ./
+          mv code/php/sdk/.* ./
           rmdir code/php/sdk
 
       - name: Commit changes
