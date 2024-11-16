@@ -2,7 +2,7 @@ name: Sync from Datastar Monorepo
 
 on:
   schedule:
-    - cron: '20 * * * *'
+    - cron: '26 * * * *'
 
 jobs:
   sync:
@@ -17,11 +17,11 @@ jobs:
       - name: Fetch monorepo
         run: git fetch monorepo
 
-      - name: Sync monorepo
+      - name: Sync from monorepo
         run: |
           git checkout monorepo/main code/php/sdk -- .
           git add .
-          git commit -m "Sync monorepo"
+          git commit -m "Sync from monorepo"
 
       - name: Push changes
         run: git push origin main
