@@ -28,8 +28,7 @@ jobs:
 
       - name: Copy files and clean up
         run: |
-          cp -r code/php/sdk/* ./
-          cp -r code/php/sdk/.* ./
+          cp -rT code/php/sdk ./ || exit 1
           rm -rf code/php/sdk
 
       - name: Commit changes
