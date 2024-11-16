@@ -31,6 +31,11 @@ jobs:
           cp -rT code/php/sdk ./ || exit 1
           rm -rf code/php/sdk
 
+      - name: Set up Git user
+        run: |
+          git config --global user.email "bencroker@users.noreply.github.com"
+          git config --global user.name "Ben Croker"
+
       - name: Commit changes
         run: |
           git add .
