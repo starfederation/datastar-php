@@ -28,6 +28,7 @@ jobs:
 
       - name: Move files
         run: |
+          sleep 5  # Add a delay to handle transient issues
           mv code/php/sdk/* ./
           mv code/php/sdk/.* ./
           rmdir code/php/sdk
