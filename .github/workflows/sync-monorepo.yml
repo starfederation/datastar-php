@@ -1,8 +1,8 @@
 name: Sync Monorepo
 
 on:
-  schedule:
-    - cron: '0 * * * *' # Every hour
+  #schedule:
+  #  - cron: '0 * * * *' # Every hour
   workflow_dispatch: {}
 
 jobs:
