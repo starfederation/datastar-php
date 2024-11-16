@@ -1,0 +1,27 @@
+name: Sync from Datastar Monorepo
+
+on:
+  schedule:
+    - cron: '20 * * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+
+      - name: Add monorepo remote
+        run: git remote add monorepo https://github.com/starfederation/datastar.git
+
+      - name: Fetch monorepo
+        run: git fetch monorepo
+
+      - name: Sync monorepo
+        run: |
+          git checkout monorepo/main code/php/sdk -- .
+          git add .
+          git commit -m "Sync monorepo"
+
+      - name: Push changes
+        run: git push origin main
