@@ -5,15 +5,15 @@
 
 namespace starfederation\datastar\events;
 
-use starfederation\datastar\Constants;
+use starfederation\datastar\Consts;
 use starfederation\datastar\enums\EventType;
 
-class Signal implements EventInterface
+class MergeSignals implements EventInterface
 {
     use EventTrait;
 
     public string $data;
-    public bool $onlyIfMissing = Constants::DefaultOnlyIfMissing;
+    public bool $onlyIfMissing = Consts::DEFAULT_MERGE_SIGNALS_ONLY_IF_MISSING;
 
     public function __construct(string $data, array $options = [])
     {
@@ -29,7 +29,7 @@ class Signal implements EventInterface
      */
     public function getEventType(): EventType
     {
-        return EventType::Signal;
+        return EventType::MergeSignals;
     }
 
     /**
@@ -37,18 +37,15 @@ class Signal implements EventInterface
      */
     public function getDataLines(): array
     {
-        $data = trim($this->data);
         $dataLines = [];
 
-        if ($this->onlyIfMissing !== Constants::DefaultOnlyIfMissing) {
-            $dataLines[] = $this->getDataLine(Constants::OnlyIfMissingDatalineLiteral, 'true');
+        if ($this->onlyIfMissing !== Consts::DEFAULT_MERGE_SIGNALS_ONLY_IF_MISSING) {
+            $dataLines[] = $this->getDataLine(Consts::ONLY_IF_MISSING_DATALINE_LITERAL, $this->getBooleanAsString($this->onlyIfMissing));
         }
 
-        $lines = explode("\n", $data);
-        foreach ($lines as $line) {
-            $dataLines[] = $this->getDataLine(Constants::StoreDatalineLiteral, $line);
-        }
-
-        return $dataLines;
+        return array_merge(
+            $dataLines,
+            $this->getMultiDataLines(Consts::SIGNALS_DATALINE_LITERAL, $this->data),
+        );
     }
 }

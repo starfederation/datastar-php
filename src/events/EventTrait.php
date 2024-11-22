@@ -5,7 +5,7 @@
 
 namespace starfederation\datastar\events;
 
-use starfederation\datastar\Constants;
+use starfederation\datastar\Consts;
 
 trait EventTrait
 {
@@ -23,7 +23,7 @@ trait EventTrait
             $options['eventId'] = $this->eventId;
         }
 
-        if (!empty($this->retryDuration) && $this->retryDuration != Constants::DefaultSSERetryDuration) {
+        if (!empty($this->retryDuration) && $this->retryDuration != Consts::DEFAULT_SSE_RETRY_DURATION) {
             $options['retryDuration'] = $this->retryDuration;
         }
 
@@ -33,12 +33,31 @@ trait EventTrait
     /**
      * @inerhitdoc
      */
-    public function getDataLine(string|int ...$parts): string
+    public function getBooleanAsString(bool $value): string
     {
-        if (!empty($parts[0])) {
-            $parts[0] = trim($parts[0]);
+        return $value ? 'true' : 'false';
+    }
+
+    /**
+     * @inerhitdoc
+     */
+    public function getDataLine(string $datalineLiteral, string|int ...$parts): string
+    {
+        return 'data: ' . $datalineLiteral. implode(' ', $parts);
+    }
+
+    /**
+     * @inerhitdoc
+     */
+    public function getMultiDataLines(string $datalineLiteral, string $data): array
+    {
+        $dataLines = [];
+        $lines = explode("\n", trim($data));
+
+        foreach ($lines as $line) {
+            $dataLines[] = $this->getDataLine($datalineLiteral, $line);
         }
 
-        return 'data: ' . implode(' ', $parts);
+        return $dataLines;
     }
 }

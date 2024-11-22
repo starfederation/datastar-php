@@ -27,38 +27,35 @@ use starfederation\datastar\enums\FragmentMergeMode;
 use starfederation\datastar\ServerSentEventGenerator;
 
 // Creates a new `ServerSentEventGenerator` instance.
-$sseGenerator = new ServerSentEventGenerator();
+$sse = new ServerSentEventGenerator();
 
-// Merges a fragment into the DOM.
-$sseGenerator->mergeFragment('<div></div>', [
+// Merges HTML fragments into the DOM.
+$sse->mergeFragments('<div></div>', [
     'selector' => '#my-div',
     'mergeMode' => FragmentMergeMode::Append,
     'settleDuration' => 1000,
     'useViewTransition' => true,
 ]);
 
-// Removes one or more fragments from the DOM.
-$sseGenerator->removeFragments('#my-div');
+// Removes HTML fragments from the DOM.
+$sse->removeFragments('#my-div');
 
-// Merges values into the store.
-$sseGenerator->mergeStore(['foo' => 123], [
+// Merges signals into the store.
+$sse->mergeSignals(['foo' => 123], [
     'onlyIfMissing' => true,
 ]);
 
-// Removes one or more paths from the store.
-$sseGenerator->removeFromStore(['foo', 'bar']);
+// Removes signals from the store.
+$sse->removeSignals(['foo', 'bar']);
 
-// Redirects the browser.
-$sseGenerator->redirect('/success');
-
-// Sends a message to the browser console.
-$sseGenerator->console(ConsoleMode::Log, 'Hello, world!');
+// Executes JavaScript in the browser.
+$sse->ExecuteScript('console.log("Hello, world!")');
 ```
 
 ```php
-use starfederation\datastar\ParseIncoming;
+use starfederation\datastar\ReadSignals;
 
-$store = ParseIncoming::getStore();
+$store = ReadSignals::getStore();
 ```
 
 ---

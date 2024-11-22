@@ -29,7 +29,17 @@ interface EventInterface
     public function getDataLines(): array;
 
     /**
+     * Returns a boolean as a string.
+     */
+    public function getBooleanAsString(bool $value): string;
+
+    /**
      * Returns a data line.
      */
     public function getDataLine(string $value): string;
+
+    /**
+     * Returns multiple data lines.
+     */
+    public function getMultiDataLines(string $literal, string $data): array;
 }

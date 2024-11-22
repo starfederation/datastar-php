@@ -5,15 +5,14 @@
 
 namespace starfederation\datastar;
 
-use starfederation\datastar\enums\ConsoleMode;
 use starfederation\datastar\enums\EventType;
 use starfederation\datastar\enums\FragmentMergeMode;
-use starfederation\datastar\events\Console;
 use starfederation\datastar\events\EventInterface;
-use starfederation\datastar\events\Fragment;
-use starfederation\datastar\events\Redirect;
-use starfederation\datastar\events\Remove;
-use starfederation\datastar\events\Signal;
+use starfederation\datastar\events\ExecuteScript;
+use starfederation\datastar\events\MergeFragments;
+use starfederation\datastar\events\MergeSignals;
+use starfederation\datastar\events\RemoveFragments;
+use starfederation\datastar\events\RemoveSignals;
 
 class ServerSentEventGenerator
 {
@@ -23,7 +22,7 @@ class ServerSentEventGenerator
     }
 
     /**
-     * Merges a fragment into the DOM.
+     * Merges HTML fragments into the DOM.
      *
      * @param array{
      *     selector?: string|null,
@@ -34,13 +33,13 @@ class ServerSentEventGenerator
      *     retryDuration?: int|null,
      * } $options
      */
-    public function mergeFragment(string $data, array $options = []): void
+    public function mergeFragments(string $data, array $options = []): void
     {
-        $this->sendEvent(new Fragment($data, $options));
+        $this->sendEvent(new MergeFragments($data, $options));
     }
 
     /**
-     * Removes one or more fragments from the DOM.
+     * Removes HTML fragments from the DOM.
      *
      * @param array{
      *      eventId?: string|null,
@@ -49,39 +48,31 @@ class ServerSentEventGenerator
      */
     public function removeFragments(string $selector, array $options = []): void
     {
-        $this->sendEvent(new Remove($selector, $options));
+        $this->sendEvent(new RemoveFragments($selector, $options));
     }
 
     /**
-     * Merges values into the store.
+     * Merges signals into the store.
      */
-    public function mergeStore(string $data, array $options = []): void
+    public function mergeSignals(string $data, array $options = []): void
     {
-        $this->sendEvent(new Signal($data, $options));
+        $this->sendEvent(new MergeSignals($data, $options));
     }
 
     /**
-     * Removes one or more paths from the store.
+     * Removes signal paths from the store.
      */
-    public function removeFromStore(array $paths): void
+    public function removeSignals(array $paths): void
     {
-        $this->sendEvent(new Remove(paths: $paths));
+        $this->sendEvent(new RemoveSignals(paths: $paths));
     }
 
     /**
-     * Redirects the browser.
+     * Executes JavaScript in the browser.
      */
-    public function redirect(string $url): void
+    public function executeScript(string $script, array $options = []): void
     {
-        $this->sendEvent(new Redirect($url));
-    }
-
-    /**
-     * Sends a message to the browser console.
-     */
-    public function console(ConsoleMode $mode, string $message): void
-    {
-        $this->sendEvent(new Console($mode, $message));
+        $this->sendEvent(new ExecuteScript($script, $options));
     }
 
     /**
