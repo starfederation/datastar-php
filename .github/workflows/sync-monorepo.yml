@@ -29,7 +29,7 @@ jobs:
 
       - name: Copy files and clean up
         run: |
-          cp -rT code/php/sdk ./ || exit 1
+          rsync -av --exclude='.github/workflows' code/php/sdk/ ./
           rm -rf code/php/sdk
 
       - name: Sync monorepo
