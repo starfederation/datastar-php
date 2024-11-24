@@ -34,8 +34,8 @@ jobs:
 
       - name: Sync monorepo
         run: |
-          git config --global user.email "bencroker@users.noreply.github.com"
-          git config --global user.name "Ben Croker"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions Bot"
           git add .
           git commit -m "Sync monorepo"
-          git push https://${{ secrets.PAT_TOKEN }}@github.com/starfederation/datastar-php main
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/starfederation/datastar-php main
