@@ -19,8 +19,8 @@ jobs:
       - name: Fetch monorepo
         run: git fetch monorepo
 
-      - name: Checkout `code/php/sdk` from `monorepo/develop`
-        run: git checkout monorepo/develop -- code/php/sdk
+      - name: Checkout `sdk/php` from `monorepo/develop`
+        run: git checkout monorepo/develop -- sdk/php
 
       - name: Remove directories
         run: |
@@ -29,8 +29,8 @@ jobs:
 
       - name: Copy files and clean up
         run: |
-          rsync -av --exclude='.github/workflows' code/php/sdk/ ./
-          rm -rf code/php/sdk
+          rsync -av --exclude='.github/workflows' sdk/php/ ./
+          rm -rf sdk/php
 
       - name: Sync monorepo
         run: |
