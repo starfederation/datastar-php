@@ -19,8 +19,8 @@ jobs:
       - name: Fetch monorepo
         run: git fetch monorepo
 
-      - name: Checkout `sdk/php` from `monorepo/develop`
-        run: git checkout monorepo/develop -- sdk/php
+      - name: Checkout `sdk/php` from `monorepo/main`
+        run: git checkout monorepo/main -- sdk/php
 
       - name: Remove directories
         run: |
