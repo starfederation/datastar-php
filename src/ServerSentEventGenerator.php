@@ -49,11 +49,15 @@ class ServerSentEventGenerator
     }
 
     /**
-     * Sends the response headers, if not already sent.
+     * Constructor.
      */
-    public function sendHeaders(): void
+    public function __construct()
     {
-        if (headers_sent()) {
+        // Abort the process if the client closes the connection.
+        ignore_user_abort(false);
+
+        // Sends the response headers only if not already sent.
+        if (!headers_sent()) {
             return;
         }
 
@@ -114,6 +118,15 @@ class ServerSentEventGenerator
     public function executeScript(string $script, array $options = []): void
     {
         $this->sendEvent(new ExecuteScript($script, $options));
+    }
+
+    /**
+     * Redirects the browser to the provided URI.
+     */
+    public function redirect(string $uri, array $options = []): void
+    {
+        $script = 'setTimeout(() => window.location = "' . $uri . '")';
+        $this->executeScript($script, $options);
     }
 
     /**
