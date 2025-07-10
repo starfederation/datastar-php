@@ -6,14 +6,15 @@
 namespace starfederation\datastar\events;
 
 use starfederation\datastar\Consts;
+use starfederation\datastar\enums\ElementPatchMode;
 use starfederation\datastar\enums\EventType;
 
-class RemoveFragments implements EventInterface
+class RemoveElements implements EventInterface
 {
     use EventTrait;
 
     public string $selector;
-    public bool $useViewTransition = Consts::DEFAULT_FRAGMENTS_USE_VIEW_TRANSITIONS;
+    public bool $useViewTransition = Consts::DEFAULT_ELEMENTS_USE_VIEW_TRANSITIONS;
 
     public function __construct(string $selector, array $options = [])
     {
@@ -29,7 +30,7 @@ class RemoveFragments implements EventInterface
      */
     public function getEventType(): EventType
     {
-        return EventType::RemoveFragments;
+        return EventType::PatchElements;
     }
 
     /**
@@ -39,9 +40,10 @@ class RemoveFragments implements EventInterface
     {
         $dataLines = [
             $this->getDataLine(Consts::SELECTOR_DATALINE_LITERAL, $this->selector),
+            $this->getDataLine(Consts::MODE_DATALINE_LITERAL, ElementPatchMode::Remove->value),
         ];
 
-        if ($this->useViewTransition !== Consts::DEFAULT_FRAGMENTS_USE_VIEW_TRANSITIONS) {
+        if ($this->useViewTransition !== Consts::DEFAULT_ELEMENTS_USE_VIEW_TRANSITIONS) {
             $dataLines[] = $this->getDataLine(Consts::USE_VIEW_TRANSITION_DATALINE_LITERAL, $this->getBooleanAsString($this->useViewTransition));
         }
 
