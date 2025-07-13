@@ -1,7 +1,7 @@
 [![Stable Version](https://img.shields.io/packagist/v/starfederation/datastar-php?label=stable)]((https://packagist.org/packages/starfederation/datastar-php))
 [![Total Downloads](https://img.shields.io/packagist/dt/starfederation/datastar-php)](https://packagist.org/packages/starfederation/datastar-php)
 
-<p align="center"><img width="150" src="https://putyourlightson.com/assets/logos/datastar.svg"></p>
+<p align="center"><img width="150" height="150" src="https://data-star.dev/static/images/rocket-512x512.png"></p>
 
 # Datastar PHP SDK
 
@@ -24,6 +24,13 @@ composer require starfederation/datastar-php
 ```
 
 ## Usage
+
+```php
+use starfederation\datastar\ServerSentEventGenerator;
+
+// Reads signals from the request.
+$signals = ServerSentEventGenerator::readSignals();
+```
 
 ```php
 use starfederation\datastar\enums\EventType;
@@ -64,10 +71,4 @@ $sse->executeScript('console.log("Hello, world!")', [
 
 // Redirects the browser by setting the location to the provided URI.
 $sse->location('/guide');
-```
-
-```php
-use starfederation\datastar\ServerSentEventGenerator;
-
-$signals = ServerSentEventGenerator::readSignals();
 ```
