@@ -30,7 +30,7 @@ class ServerSentEventGenerator
 
         // Connection-specific headers are only allowed in HTTP/1.1.
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Connection
-        if ($_SERVER['SERVER_PROTOCOL'] === 'HTTP/1.1') {
+        if (($_SERVER['SERVER_PROTOCOL'] ?? 'Unknown') === 'HTTP/1.1') {
             $headers['Connection'] = 'keep-alive';
         }
 
