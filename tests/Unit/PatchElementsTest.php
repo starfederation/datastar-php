@@ -1,6 +1,7 @@
 <?php
 
 use starfederation\datastar\enums\ElementPatchMode;
+use starfederation\datastar\enums\NamespaceType;
 use starfederation\datastar\events\PatchElements;
 
 test('Mode can be passed in', function($mode) {
@@ -16,6 +17,21 @@ test('Mode can be passed in', function($mode) {
 })->with([
     'enum' => ElementPatchMode::Append,
     'string' => ElementPatchMode::Append->value,
+]);
+
+test('Namespace can be passed in', function($namespace) {
+    $content = '<div>content</div>';
+    $event = new PatchElements($content, [
+        'namespace' => $namespace,
+    ]);
+    expect($event->getDataLines())
+        ->toBe([
+            'data: namespace svg',
+            'data: elements ' . $content,
+        ]);
+})->with([
+    'enum' => NamespaceType::Svg,
+    'string' => NamespaceType::Svg->value,
 ]);
 
 test('Options are correctly output', function() {
