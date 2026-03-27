@@ -44,7 +44,7 @@ class ServerSentEventGenerator
      */
     public static function readSignals(): array
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' || $_SERVER['REQUEST_METHOD'] === 'DELETE') {
+        if (in_array($_SERVER['REQUEST_METHOD'], ['GET', 'DELETE'])) {
             $input = $_GET[Consts::DATASTAR_KEY];
         } else {
             $input = file_get_contents('php://input');
