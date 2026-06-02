@@ -20,3 +20,4 @@
 ### [RemoveElements](Unit/RemoveElementsTest.php)
 
 ![Pass](https://raw.githubusercontent.com/putyourlightson/craft-generate-test-spec/main/icons/pass.svg) Options are correctly output.  
+![Pass](https://raw.githubusercontent.com/putyourlightson/craft-generate-test-spec/main/icons/pass.svg) Default options are not output.  
