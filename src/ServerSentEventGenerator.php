@@ -141,7 +141,8 @@ class ServerSentEventGenerator
         echo $output;
 
         if (ob_get_contents()) {
-            ob_end_flush();
+            ob_flush();
+            ob_clean();
         }
         flush();
 
