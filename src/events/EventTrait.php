@@ -52,14 +52,9 @@ trait EventTrait
      */
     public function getMultiDataLines(string $datalineLiteral, string $data): array
     {
-        $dataLines = [];
-        $lines = explode("\n", trim($data));
+        $prefix = $this->getDataLine($datalineLiteral);
 
-        foreach ($lines as $line) {
-            $dataLines[] = $this->getDataLine($datalineLiteral, $line);
-        }
-
-        return $dataLines;
+        return explode("\n", $prefix . str_replace("\n", "\n" . $prefix, trim($data)));
     }
 
     /**
@@ -79,20 +74,20 @@ trait EventTrait
             $eventData->$key = $value;
         }
 
-        $output = ['event: ' . $eventData->eventType->value];
+        $output = 'event: ' . $eventData->eventType->value;
 
         if ($eventData->eventId !== null) {
-            $output[] = 'id: ' . $eventData->eventId;
+            $output .= "\n" . 'id: ' . $eventData->eventId;
         }
 
         if ($eventData->retryDuration !== Consts::DEFAULT_SSE_RETRY_DURATION) {
-            $output[] = 'retry: ' . $eventData->retryDuration;
+            $output .= "\n" . 'retry: ' . $eventData->retryDuration;
         }
 
-        foreach ($eventData->data as $line) {
-            $output[] = $line;
+        if ($eventData->data !== []) {
+            $output .= "\n" . implode("\n", $eventData->data);
         }
 
-        return implode("\n", $output) . "\n\n";
+        return $output . "\n\n";
     }
 }

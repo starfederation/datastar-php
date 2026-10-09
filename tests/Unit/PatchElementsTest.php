@@ -72,3 +72,25 @@ test('Multi-line content is correctly output', function() {
             'data: elements ' . $content,
         ]);
 });
+
+test('Multi-line content is correctly output as event text', function() {
+    $event = new PatchElements("<ul>\n  <li>a</li>\n\n  <li>b</li>\n</ul>", [
+        'selector' => '#list',
+        'mode' => ElementPatchMode::Append,
+        'eventId' => '7',
+        'retryDuration' => 2000,
+    ]);
+    expect($event->getOutput())
+        ->toBe(
+            "event: datastar-patch-elements\n"
+            . "id: 7\n"
+            . "retry: 2000\n"
+            . "data: selector #list\n"
+            . "data: mode append\n"
+            . "data: elements <ul>\n"
+            . "data: elements   <li>a</li>\n"
+            . "data: elements \n"
+            . "data: elements   <li>b</li>\n"
+            . "data: elements </ul>\n\n"
+        );
+});
