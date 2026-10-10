@@ -94,3 +94,58 @@ test('Multi-line content is correctly output as event text', function() {
             . "data: elements </ul>\n\n"
         );
 });
+
+test('Carriage returns in escaped HTML cannot inject SSE events', function() {
+    $message = "hi\r\revent: datastar-patch-signals\rdata: signals {pwned: alert(document.domain)}\r\r";
+    $content = '<div id="messages">' . htmlspecialchars($message, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</div>';
+    $event = new PatchElements($content);
+
+    expect($event->getOutput())->toBe(
+        "event: datastar-patch-elements\n"
+        . "data: elements <div id=\"messages\">hi\n"
+        . "data: elements \n"
+        . "data: elements event: datastar-patch-signals\n"
+        . "data: elements data: signals {pwned: alert(document.domain)}\n"
+        . "data: elements \n"
+        . "data: elements </div>\n\n"
+    );
+});
+
+test('Payload line endings are normalized without adding blank lines', function($lineEnding) {
+    $event = new PatchElements('<div>' . $lineEnding . 'content' . $lineEnding . '</div>');
+
+    expect($event->getOutput())->toBe(
+        "event: datastar-patch-elements\n"
+        . "data: elements <div>\n"
+        . "data: elements content\n"
+        . "data: elements </div>\n\n"
+    );
+})->with([
+    'LF' => "\n",
+    'CRLF' => "\r\n",
+    'CR' => "\r",
+]);
+
+test('Single-line options reject SSE line breaks', function($lineEnding) {
+    $event = new PatchElements('<div>content</div>', [
+        'selector' => '#messages' . $lineEnding . 'event: datastar-patch-signals',
+    ]);
+
+    expect(fn() => $event->getOutput())->toThrow(InvalidArgumentException::class);
+})->with([
+    'LF' => "\n",
+    'CRLF' => "\r\n",
+    'CR' => "\r",
+]);
+
+test('Event IDs reject invalid SSE characters', function($character) {
+    $event = new PatchElements('<div>content</div>', [
+        'eventId' => '7' . $character . 'event: datastar-patch-signals',
+    ]);
+
+    expect(fn() => $event->getOutput())->toThrow(InvalidArgumentException::class);
+})->with([
+    'LF' => "\n",
+    'CR' => "\r",
+    'NUL' => "\0",
+]);
